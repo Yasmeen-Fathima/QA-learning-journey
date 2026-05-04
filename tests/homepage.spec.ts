@@ -18,8 +18,8 @@ test('homepage loads and displays the product catalog', async ({ page }) => {
   await expect(page).toHaveTitle(/Practice Software Testing/i);
 
   // Assertion 2: at least one product card is visible.
-  // Toolshop tags product cards with data-test="product".
+  // Product cards are <a> links whose href matches /product/<id>.
   // First-load can be slow on a free demo backend, so we give it room.
-  const firstProduct = page.locator('[data-test="product"]').first();
+  const firstProduct = page.locator('a[href*="/product/"]').first();
   await expect(firstProduct).toBeVisible({ timeout: 15000 });
 });
