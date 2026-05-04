@@ -48,3 +48,9 @@ The HTML report is uploaded as a build artifact — open the run on GitHub, scro
 ## Why Toolshop
 
 It's a realistic e-commerce demo built for QA practice: stable `data-test` selectors, a public REST API for later API testing, and enough complexity (search, cart, checkout, admin) to support every phase of this project without switching targets.
+
+Weekly log 1:
+- Finished successfully week 1
+- Learned GitHub Actions, folder stucture, how YAML pipeline workflows work
+- Feeling motivated to continue further...
+  
