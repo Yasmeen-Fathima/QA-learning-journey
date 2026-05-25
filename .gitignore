@@ -141,3 +141,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# generated on every run
+playwright-report/
+test-results/
+node_modules/
