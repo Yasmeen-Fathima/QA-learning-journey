@@ -11,7 +11,7 @@ export default defineConfig({
     baseURL: 'https://practicesoftwaretesting.com',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    actionTimeout: 15000,
+    actionTimeout: process.env.CI ? 30000 : 15000,
     navigationTimeout: 30000,
   },
 

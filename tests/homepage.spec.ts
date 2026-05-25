@@ -37,7 +37,9 @@ await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
 test('verify sort dropdown descending', async({page})=>{
    await page.goto('/');
 
+  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
+  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
@@ -57,7 +59,9 @@ test('verify sort dropdown descending', async({page})=>{
 test('verify sort dropdown ascending', async({page})=>{
    await page.goto('/');
 
+  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
+  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
@@ -76,7 +80,9 @@ test('verify sort dropdown ascending', async({page})=>{
 test('verify sort dropdown prize descending', async({page})=>{
    await page.goto('/');
 
+  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
+  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
@@ -96,7 +102,9 @@ test('verify sort dropdown prize descending', async({page})=>{
 test('verify sort dropdown prize ascending', async({page})=>{
    await page.goto('/');
 
+  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
+  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
