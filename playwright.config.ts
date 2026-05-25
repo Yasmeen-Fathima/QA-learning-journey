@@ -5,7 +5,6 @@ import { defineConfig, devices } from '@playwright/test';
  * Docs: https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  
   testDir: './tests',
 
   // Fail the build on CI if you accidentally left test.only in the source.
@@ -24,12 +23,11 @@ export default defineConfig({
     // Base URL — tests can use page.goto('/') etc.
     baseURL: 'https://practicesoftwaretesting.com',
 
-    // This site uses data-test (not data-testid) on interactive elements.
-    testIdAttribute: 'data-test',
-
     // Trace + screenshot on failure for easier debugging.
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    actionTimeout: 15000, // 15 seconds for each action
+    navigationTimeout: 30000, // 30 seconds for page navigation
   },
 
   projects: [
@@ -42,12 +40,9 @@ export default defineConfig({
     // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     // { name: 'webkit',  use: { ...devices['Desktop Safari'] } },
   ],
-   timeout: 60000, // 60 seconds per test (default is 30s)
+  timeout: 60000, // 60 seconds per test (default is 30s)
   expect: {
     timeout: 10000, // 10 seconds for assertions
   },
-  use: {
-    actionTimeout: 15000, // 15 seconds for each action
-    navigationTimeout: 30000, // 30 seconds for page navigation
-  }
+  
 });
