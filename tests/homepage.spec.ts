@@ -26,8 +26,9 @@ test('homepage loads and displays the product catalog', async ({ page }) => {
 
 test('load hand tools page and display the product details', async({page})=>{
   await page.goto('/');
-
+await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
+  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await expect(page).toHaveTitle(/Hand Tools/)
