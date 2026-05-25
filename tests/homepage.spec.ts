@@ -10,6 +10,14 @@ import { test, expect } from '@playwright/test';
  * for automation practice. It uses `data-test` attributes for stable
  * selectors and has a public REST API we can use later in Phase 2.
  */
+
+async function navigateToHandTools(page: any) {
+  await page.goto('/');
+  await page.getByTestId('nav-categories').click();
+  await page.getByText('Hand Tools').first().waitFor({ state: 'visible' });
+  await page.getByText('Hand Tools').click();
+}
+
 test('homepage loads and displays the product catalog', async ({ page }) => {
   // baseURL is set in playwright.config.ts, so '/' goes to the homepage.
   await page.goto('/');
@@ -24,87 +32,55 @@ test('homepage loads and displays the product catalog', async ({ page }) => {
   await expect(firstProduct).toBeVisible({ timeout: 15000 });
 });
 
-test('load hand tools page and display the product details', async({page})=>{
-  await page.goto('/', { waitUntil: 'networkidle' });
-  await page.getByTestId("nav-categories").click();
-  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
-  await page.getByText("Hand Tools").click();
+test('load hand tools page and display the product details', async ({ page }) => {
+  await navigateToHandTools(page);
+  await expect(page).toHaveTitle(/Hand Tools/);
+});
 
-  await expect(page).toHaveTitle(/Hand Tools/)
-})
+test('verify sort dropdown descending', async ({ page }) => {
+  await navigateToHandTools(page);
 
-test('verify sort dropdown descending', async({page})=>{
-  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.getByTestId('sort').selectOption('name,desc');
 
-  await page.getByTestId("nav-categories").click();
-  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
-  await page.getByText("Hand Tools").click();
-
-  await page.getByTestId("sort").click();
-
-  await page.locator('[data-test="sort"]').selectOption("name,desc");
-
-  await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({state: 'visible'});
-  const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')))
+  await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({ state: 'visible' });
+  const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')));
 
   const sortedNames = [...namecontents].sort().reverse();
-
   expect(sortedNames).toEqual(namecontents);
-})
+});
 
-test('verify sort dropdown ascending', async({page})=>{
-  await page.goto('/', { waitUntil: 'networkidle' });
+test('verify sort dropdown ascending', async ({ page }) => {
+  await navigateToHandTools(page);
 
-  await page.getByTestId("nav-categories").click();
-  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
-  await page.getByText("Hand Tools").click();
+  await page.getByTestId('sort').selectOption('name,asc');
 
-  await page.getByTestId("sort").click();
-
-  await page.locator('[data-test="sort"]').selectOption("name,asc");
-
-  await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({state: 'visible'});
-  const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')))
+  await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({ state: 'visible' });
+  const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')));
 
   const sortedNames = [...namecontents].sort();
-
   expect(sortedNames).toEqual(namecontents);
-})
+});
 
-test('verify sort dropdown prize descending', async({page})=>{
-  await page.goto('/', { waitUntil: 'networkidle' });
+test('verify sort dropdown prize descending', async ({ page }) => {
+  await navigateToHandTools(page);
 
-  await page.getByTestId("nav-categories").click();
-  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
-  await page.getByText("Hand Tools").click();
+  await page.getByTestId('sort').selectOption('price,desc');
 
-  await page.getByTestId("sort").click();
-
-  await page.locator('[data-test="sort"]').selectOption("price,desc");
-
-  await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').first().waitFor({state: 'visible'});
-  const prices = await page.locator('[data-test="sorting_completed"] [data-test="product-price"]')
-  .allTextContents();
+  await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').first().waitFor({ state: 'visible' });
+  const prices = await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').allTextContents();
   const numericPrices = prices.map(p => parseFloat(p.replace('$', '')));
-  const sortprices = [...numericPrices].sort(((a, b) => b - a));
+  const sortprices = [...numericPrices].sort((a, b) => b - a);
   expect(sortprices).toEqual(numericPrices);
-})
+});
 
-test('verify sort dropdown prize ascending', async({page})=>{
-  await page.goto('/', { waitUntil: 'networkidle' });
+test('verify sort dropdown prize ascending', async ({ page }) => {
+  await navigateToHandTools(page);
 
-  await page.getByTestId("nav-categories").click();
-  await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
-  await page.getByText("Hand Tools").click();
+  await page.getByTestId('sort').selectOption('price,asc');
 
-  await page.getByTestId("sort").click();
-
-  await page.locator('[data-test="sort"]').selectOption("price,asc");
-
-  await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').first().waitFor({state: 'visible'});
-  const prices = await page.locator('[data-test="sorting_completed"] [data-test="product-price"]')
-  .allTextContents();
+  await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').first().waitFor({ state: 'visible' });
+  const prices = await page.locator('[data-test="sorting_completed"] [data-test="product-price"]').allTextContents();
   const numericPrices = prices.map(p => parseFloat(p.replace('$', '')));
-  const sortprices = [...numericPrices].sort(((a, b) => a - b));
+  const sortprices = [...numericPrices].sort((a, b) => a - b);
   expect(sortprices).toEqual(numericPrices);
-})
+});
