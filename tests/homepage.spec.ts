@@ -25,8 +25,7 @@ test('homepage loads and displays the product catalog', async ({ page }) => {
 });
 
 test('load hand tools page and display the product details', async({page})=>{
-  await page.goto('/');
-await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
+  await page.goto('/', { waitUntil: 'networkidle' });
   await page.getByTestId("nav-categories").click();
   await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
@@ -35,58 +34,51 @@ await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
 })
 
 test('verify sort dropdown descending', async({page})=>{
-   await page.goto('/');
+  await page.goto('/', { waitUntil: 'networkidle' });
 
-  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
   await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
-
 
   await page.locator('[data-test="sort"]').selectOption("name,desc");
 
   await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({state: 'visible'});
   const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')))
 
-    const sortedNames = [...namecontents].sort().reverse();
+  const sortedNames = [...namecontents].sort().reverse();
 
-    expect(sortedNames).toEqual(namecontents);
-
+  expect(sortedNames).toEqual(namecontents);
 })
 
 test('verify sort dropdown ascending', async({page})=>{
-   await page.goto('/');
+  await page.goto('/', { waitUntil: 'networkidle' });
 
-  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
   await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
-
 
   await page.locator('[data-test="sort"]').selectOption("name,asc");
 
   await page.locator('[data-test="sorting_completed"] img.card-img-top').first().waitFor({state: 'visible'});
   const namecontents = await page.locator('[data-test="sorting_completed"] img.card-img-top').evaluateAll(imgs => imgs.map(img => img.getAttribute('alt')))
 
-    const sortedNames = [...namecontents].sort();
+  const sortedNames = [...namecontents].sort();
 
-    expect(sortedNames).toEqual(namecontents);
-
+  expect(sortedNames).toEqual(namecontents);
 })
-test('verify sort dropdown prize descending', async({page})=>{
-   await page.goto('/');
 
-  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
+test('verify sort dropdown prize descending', async({page})=>{
+  await page.goto('/', { waitUntil: 'networkidle' });
+
   await page.getByTestId("nav-categories").click();
   await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
-
 
   await page.locator('[data-test="sort"]').selectOption("price,desc");
 
@@ -96,19 +88,16 @@ test('verify sort dropdown prize descending', async({page})=>{
   const numericPrices = prices.map(p => parseFloat(p.replace('$', '')));
   const sortprices = [...numericPrices].sort(((a, b) => b - a));
   expect(sortprices).toEqual(numericPrices);
-
 })
 
 test('verify sort dropdown prize ascending', async({page})=>{
-   await page.goto('/');
+  await page.goto('/', { waitUntil: 'networkidle' });
 
-  await page.getByTestId("nav-categories").first().waitFor({state: 'visible'});
   await page.getByTestId("nav-categories").click();
   await page.getByText("Hand Tools").first().waitFor({state: 'visible'});
   await page.getByText("Hand Tools").click();
 
   await page.getByTestId("sort").click();
-
 
   await page.locator('[data-test="sort"]').selectOption("price,asc");
 
@@ -118,5 +107,4 @@ test('verify sort dropdown prize ascending', async({page})=>{
   const numericPrices = prices.map(p => parseFloat(p.replace('$', '')));
   const sortprices = [...numericPrices].sort(((a, b) => a - b));
   expect(sortprices).toEqual(numericPrices);
-
 })

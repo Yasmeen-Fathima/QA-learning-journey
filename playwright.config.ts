@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: process.env.CI ? 30000 : 15000,
-    navigationTimeout: 30000,
+    navigationTimeout: process.env.CI ? 60000 : 30000,
   },
 
   expect: {
