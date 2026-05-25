@@ -53,4 +53,16 @@ Weekly log 1:
 - Finished successfully week 1
 - Learned GitHub Actions, folder stucture, how YAML pipeline workflows work
 - Feeling motivated to continue further...
-  
+
+Weekly log 2:
+Its been a few weeks actually. Going through job changes and its taking up some time.
+Added 5 more tests 
+- Sort options and asserted results - sort by name (asc, desc), sort by price (asc,desc), learned how to use sort function in both cases
+  also learned why ... is used when sorting a string. 
+Pipeline was failing
+ Initially thought it was time out issue. increasing timeout didn't help later realised that getByTestId was looking for test-dataid but the website was using test-data instead.
+Adding one line to config helped resolve the issue 
+use: {
+  testIdAttribute: 'data-test', // ← tells getByTestId() to look for data-test
+}
+
