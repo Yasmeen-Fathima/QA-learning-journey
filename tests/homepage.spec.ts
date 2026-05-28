@@ -84,3 +84,6 @@ test('verify sort dropdown prize ascending', async ({ page }) => {
   const sortprices = [...numericPrices].sort((a, b) => a - b);
   expect(sortprices).toEqual(numericPrices);
 });
+test ('empty test', async({page})=>{
+  
+})
