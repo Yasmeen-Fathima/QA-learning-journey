@@ -38,3 +38,10 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
+      - name: Comment PR with test results
+        uses: daun/playwright-report-summary@v3
+        if: always()
+        with:
+          report-file: playwright-report/index.html
+          github-token: ${{ secrets.GITHUB_TOKEN}}
