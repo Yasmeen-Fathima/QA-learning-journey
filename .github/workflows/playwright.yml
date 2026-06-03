@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write  # ← Allows github-script to post comments
+  pull-requests: write
   
 jobs:
   test:
@@ -16,8 +16,9 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ://microsoft.com  #updated 
+      image: ://microsoft.com
       options: --ipc=host
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,9 +52,6 @@ jobs:
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
-             repo: context.repo.repo,
-             body: comment
+              repo: context.repo.repo,
+              body: comment
             });
-
-
-          # added comment
