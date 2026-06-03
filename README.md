@@ -66,3 +66,10 @@ use: {
   testIdAttribute: 'data-test', // ← tells getByTestId() to look for data-test
 }
 
+-log wrinting
+-------------
+Finished API tests in Playwright. Horray!!!
+that was good learning. I think I can handle any API scenarios. Feels good
+FInished PR Comments but the pipeline is failing because of playwright browser installation. I think thats because its very slow.
+Added branch protected rules. 
+---------------------------------------------------------------------------------------------------------------------------------
