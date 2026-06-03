@@ -16,8 +16,8 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ://microsoft.com
-      options: --ipc=host
+      image: "://microsoft.com"
+      options: "--ipc=host"
 
     steps:
       - name: Checkout repository
