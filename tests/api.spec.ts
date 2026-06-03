@@ -104,7 +104,7 @@ test('GET /api/brands - retrieve a brand that dont exist', async ({ request }) =
 
 test('PUT /api/brands - update a brand that dont exist', async ({ request }) => {
   // Make the request
-  const response = await request.put(`https://api-v1.practicesoftwaretesting.com/brands/99}`,{ data: {
+  const response = await request.put(`https://api-v1.practicesoftwaretesting.com/brands/99`,{ data: {
       "name": "Test6Brand",
       "slug": "Test6Brand"
     }});
