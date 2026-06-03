@@ -16,9 +16,9 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: "://microsoft.com"
+      image: mcr.microsoft.com/playwright:v1.60.0-focal
       options: "--ipc=host"
-
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
