@@ -13,8 +13,10 @@ permissions:
 jobs:
   test:
     name: Run Playwright tests
-    timeout-minutes: 90
+    timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.50.0-jammy
 
     steps:
       - name: Checkout repository
@@ -29,19 +31,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@v3
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install chromium
-
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          HOME: /root
 
       - name: Upload Playwright HTML report
         if: always()
