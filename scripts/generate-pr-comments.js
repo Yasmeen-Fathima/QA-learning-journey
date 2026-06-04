@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Read the JSON report
-const reportPath = path.join(process.cwd(), 'test-results.json');
+const reportPath = path.join(__dirname, '..', 'test-results.json');
 if (!fs.existsSync(reportPath)) {
   console.log('## 🧪 Test Results\n\n⚠️ No test results found — tests may not have run.');
   process.exit(0);
