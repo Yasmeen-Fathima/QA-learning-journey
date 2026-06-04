@@ -3,6 +3,10 @@ const path = require('path');
 
 // Read the JSON report
 const reportPath = path.join(process.cwd(), 'test-results.json');
+if (!fs.existsSync(reportPath)) {
+  console.log('## 🧪 Test Results\n\n⚠️ No test results found — tests may not have run.');
+  process.exit(0);
+}
 const rawData = fs.readFileSync(reportPath, 'utf8');
 const report = JSON.parse(rawData);
 
