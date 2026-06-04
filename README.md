@@ -66,3 +66,4 @@ use: {
   testIdAttribute: 'data-test', // ← tells getByTestId() to look for data-test
 }
 
+[![Playwright Tests](https://github.com/Yasmeen-Fathima/QA-learning-journey/actions/workflows/playwright.yml/badge.svg)](https://github.com/Yasmeen-Fathima/QA-learning-journey/actions/workflows/playwright.yml)
