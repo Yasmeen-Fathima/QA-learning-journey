@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 
+
 test('GET /api/brands - retrieve all brands', async ({ request }) => {
   // Make the request
   const response = await request.get('https://api-v1.practicesoftwaretesting.com/brands');
@@ -20,7 +21,9 @@ test('GET /api/brands - retrieve all brands', async ({ request }) => {
   expect(firstBrand).toHaveProperty('name');
   expect(firstBrand).toHaveProperty('slug');
 });
-let createdBrandId: number;
+
+test.describe('Brand CRUD flow',()=>{
+  let createdBrandId: number;
   test('Post /api/brands - add a new brand', async ({ request }) => {
     // Make the request
     const response = await request.post('https://api-v1.practicesoftwaretesting.com/brands',{ data: {
@@ -35,12 +38,12 @@ let createdBrandId: number;
     const brand = await response.json();
     
     // Assert that we got brands back
-    //expect(Array.isArray(brands)).toBeTruthy();
+
     createdBrandId = brand.id;
     expect(brand).toHaveProperty('id');
     expect(brand).toHaveProperty('name');
     expect(brand).toHaveProperty('slug');
-    expect(brand.name).toBe('Test5Brand')
+    expect(brand.name).toBe('Test5Brand');
   });
 
    test('Update /api/brands - update brand', async ({ request }) => {
@@ -69,6 +72,9 @@ let createdBrandId: number;
     expect(response.status()).toBe(204);
     
   });
+
+});
+  
 test('GET /api/brands - retrieve a single brand', async ({ request }) => {
   // Make the request
   const response = await request.get('https://api-v1.practicesoftwaretesting.com/brands/1');
@@ -84,7 +90,7 @@ test('GET /api/brands - retrieve a single brand', async ({ request }) => {
   expect(brands).toHaveProperty('id');
   expect(brands).toHaveProperty('name');
   expect(brands).toHaveProperty('slug');
-  expect(brands.name).toBe("Brand name 1")
+  expect(brands.name).toBe("Brand name 1");
 });
 
 test('GET /api/brands - retrieve a brand that dont exist', async ({ request }) => {
@@ -99,7 +105,7 @@ test('GET /api/brands - retrieve a brand that dont exist', async ({ request }) =
   
   // Assert that we got brands back
  
-  expect(brands.message).toBe("Requested item not found")
+  expect(brands.message).toBe("Requested item not found");
 });
 
 test('PUT /api/brands - update a brand that dont exist', async ({ request }) => {
@@ -117,6 +123,6 @@ test('PUT /api/brands - update a brand that dont exist', async ({ request }) => 
   
   // Assert that we got brands back
  
-  expect(brands.message).toBe("Requested item not found")
+  expect(brands.message).toBe("Requested item not found");
   
 });
