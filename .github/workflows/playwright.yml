@@ -46,7 +46,7 @@ jobs:
 
       - name: Generate PR comment
         if: always()
-        run: node ${{ github.workspace }}/scripts/generate-pr-comment.js > pr-comment.txt
+        run: node ${{ github.workspace }}/scripts/generate-pr-comments.js > pr-comment.txt
 
       - name: Post comment to PR
         if: always() && github.event_name == 'pull_request'
