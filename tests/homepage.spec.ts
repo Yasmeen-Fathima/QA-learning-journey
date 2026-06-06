@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * Week 1: One test, one page.
@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
  * selectors and has a public REST API we can use later in Phase 2.
  */
 
-async function navigateToHandTools(page: any) {
+async function navigateToHandTools(page: Page) {
   await page.goto('/');
   await page.getByTestId('nav-categories').click();
   await page.getByText('Hand Tools').first().waitFor({ state: 'visible' });
@@ -84,6 +84,3 @@ test('verify sort dropdown prize ascending', async ({ page }) => {
   const sortprices = [...numericPrices].sort((a, b) => a - b);
   expect(sortprices).toEqual(numericPrices);
 });
-test ('empty test', async({page})=>{
-  
-})
