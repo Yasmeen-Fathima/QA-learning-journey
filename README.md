@@ -64,6 +64,13 @@ Pipeline was failing
 Adding one line to config helped resolve the issue 
 use: {
   testIdAttribute: 'data-test', // ← tells getByTestId() to look for data-test
-}
+
+Weekly log 3:
+Its not been week but finished week 3 of learning. Running docker on free tier Git Hub was a challenge. It failed like so many times.
+I learned the concept and finally moved on. 
+Finished with api tests, cleaned up the code, added PR Comments. It was good learning. 
+I feel a bit more confident now while waiting for my next role.
+
+
 
 [![Playwright Tests](https://github.com/Yasmeen-Fathima/QA-learning-journey/actions/workflows/playwright.yml/badge.svg)](https://github.com/Yasmeen-Fathima/QA-learning-journey/actions/workflows/playwright.yml)
