@@ -13,6 +13,7 @@ Output should contain fields
 - Risk
 - Review flag 
 - Vague input
+- Description
 
 ## Rules
 - If Deviation is "Not normal" check for Severity and Risk
