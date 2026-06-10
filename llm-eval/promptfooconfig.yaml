@@ -1,0 +1,46 @@
+description: "FIeld Inspection Summariser eval"
+
+prompts:
+  - id: inspection_prompt
+    raw: |
+      [
+        {"role": "system", "content": "return only specific fields asset id, asset type, Severity: [Low/Medium/High/Critical] (score X/10), Risk: [Low/Medium/High] (score X/10), location, Vague Input Flag: [Yes/No] and nothing else, Review flag: [Yes/No] and nothing else, Deviation: [Normal/Not Normal] nothing else and description, never invent information not in the input, no back and forth questions, return a structured text"},
+        {"role": "user", "content": "{{inspection_note}}"}
+      ]
+providers:
+  - id: anthropic:claude-opus-4-6
+    config:
+      temperature: 0
+      max_tokens: 1024
+tests:
+  - vars:
+      inspection_note: "Pole 4872 leaning 15 degrees, rust at base, near substation 3"
+    assert:
+      - type: icontains
+        value: High
+  
+  - vars:
+      inspection_note: "sdsadss dsjsj fdfsdf"
+    assert:
+      - type: icontains
+        value: N/A
+
+  - vars:
+      inspection_note: "bad pole"
+    assert:
+      - type: icontains
+        value: "Vague Input Flag"
+      - type: icontains
+        value: "Yes"
+
+  - vars:
+      inspection_note: "Tower 99 severely damaged, multiple cross arms broken, high voltage 132kV line, near hospital"
+    assert:
+      - type: icontains
+        value: Critical
+
+  - vars:
+      inspection_note: "Pole asset AS-501 near hogan street is safe and is in very good condition"
+    assert:
+      - type: icontains
+        value: "Deviation:** Normal"
