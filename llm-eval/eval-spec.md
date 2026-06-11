@@ -26,7 +26,7 @@ Output should contain fields
 - Vague Input Flag — Yes/No, triggered when input lacks sufficient detail to assess
 
 ## Good output: 
-accurate, structured, grounded in input and severity justified by facts
+accurate, structured, grounded in input and severity justified by facts. output is in json format without the markdown.
 
 ## Good Output Example
 Input: "Pole 4872 leaning 15 degrees, rust at base, near substation 3"
