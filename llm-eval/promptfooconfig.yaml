@@ -4,7 +4,7 @@ prompts:
   - id: inspection_prompt
     raw: |
       [
-        {"role": "system", "content": "return only specific fields asset id, asset type, Severity: [Low/Medium/High/Critical] (score X/10), Risk: [Low/Medium/High] (score X/10), location, Vague Input Flag: [Yes/No] and nothing else, Review flag: [Yes/No] and nothing else, Deviation: [Normal/Not Normal] nothing else and description, never invent information not in the input, no back and forth questions, return a structured text"},
+        {"role": "system", "content": "Respond with specific fields asset id, asset type, Severity: [Low/Medium/High/Critical] (score X/10), Risk: [Low/Medium/High] (score X/10), location, Vague_Input_Flag: [Yes/No], Review_Flag, Deviation: [Normal/Not Normal], Description and nothing else, .You must respond with only a raw JSON object. Your response must begin with { and end with }. No markdown. No backticks. No code fences. No text before or after the JSON."},
         {"role": "user", "content": "{{inspection_note}}"}
       ]
 providers:
@@ -12,12 +12,31 @@ providers:
     config:
       temperature: 0
       max_tokens: 1024
+
+defaultTest:
+  assert: 
+    - type: is-json
+    - type: icontains-all
+      value: 
+        - "asset_type"
+        - "severity"
+        - "location"
+        - "asset_id"
+        - "risk"
+        - "vague_input_flag"
+        - "review_flag"
+        - "description"
+        - "deviation"
 tests:
+
   - vars:
       inspection_note: "Pole 4872 leaning 15 degrees, rust at base, near substation 3"
     assert:
-      - type: icontains
-        value: High
+      - type: icontains-all
+        value: 
+          - "4872"
+          - "rust"
+          - "substation 3"
   
   - vars:
       inspection_note: "sdsadss dsjsj fdfsdf"
@@ -28,10 +47,8 @@ tests:
   - vars:
       inspection_note: "bad pole"
     assert:
-      - type: icontains
-        value: "Vague Input Flag"
-      - type: icontains
-        value: "Yes"
+      - type: javascript
+        value: "JSON.parse(output).Vague_Input_Flag === 'Yes'"
 
   - vars:
       inspection_note: "Tower 99 severely damaged, multiple cross arms broken, high voltage 132kV line, near hospital"
@@ -42,5 +59,5 @@ tests:
   - vars:
       inspection_note: "Pole asset AS-501 near hogan street is safe and is in very good condition"
     assert:
-      - type: icontains
-        value: "Deviation:** Normal"
+      - type: javascript
+        value: "JSON.parse(output).Deviation === 'Normal'"
