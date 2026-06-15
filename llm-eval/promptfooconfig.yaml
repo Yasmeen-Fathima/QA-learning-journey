@@ -4,7 +4,7 @@ prompts:
   - id: inspection_prompt
     raw: |
       [
-        {"role": "system", "content": "Respond with specific fields asset id, asset type, Severity: [Low/Medium/High/Critical] (score X/10), Risk: [Low/Medium/High] (score X/10), location, Vague_Input_Flag: [Yes/No], Review_Flag, Deviation: [Normal/Not Normal], Description and nothing else, .You must respond with only a raw JSON object. Your response must begin with { and end with }. No markdown. No backticks. No code fences. No text before or after the JSON."},
+        {"role": "system", "content": "Respond with specific fields asset id, asset type, Severity: [Low/Medium/High/Critical] (score X/10), Risk: [Low/Medium/High] (score X/10), location when not specified set it to N/A, Vague_Input_Flag: [Yes/No], Review_Flag, Deviation: [Normal/Not Normal], Description and nothing else, .You must respond with only a raw JSON object. Your response must begin with { and end with }. No markdown. No backticks. No code fences. No text before or after the JSON.set Vague Input Flag to Yes if there are less than 5 words with no identifiable asset type or location or asset id and if there are meaningless string or gibberish language otherwise set it to No. If input is provided in a language other than English display 'Language not supported' message and do not display field values"},
         {"role": "user", "content": "{{inspection_note}}"}
       ]
 providers:
@@ -61,3 +61,64 @@ tests:
     assert:
       - type: javascript
         value: "JSON.parse(output).Deviation === 'Normal'"
+  
+  - vars:
+      inspection_note: "dasda asdd dsadad"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Vague_Input_Flag === 'Yes'"
+
+  - vars:
+      inspection_note: "found tampered in heavy rain and thunder"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Vague_Input_Flag === 'Yes'"
+
+  - vars:
+      inspection_note: "Heavy rusted pole 5646 is found in Deer Street, immediate attention required"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Vague_Input_Flag === 'No'"
+    
+  - vars: 
+      inspection_note: "होगन स्ट्रीट में पोल ​​एसेट 5434 बुरी तरह क्षतिग्रस्त हो गया है।"
+    assert:
+      - type: contains
+        value: "Language not supported"
+
+  - vars:
+      inspection_note: "asset 7865 is damaged and require immediate action to be taken"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).location === 'N/A'"
+
+  - vars:
+      inspection_note: "asset 7568 is damaged and require immediate attention at plyte street"
+    assert:
+      - type: contains
+        value: "7568"
+
+
+  - vars:
+      inspection_note: "Severe thunderstorm last night has completely damaged pole 4523 on kunat street"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Severity.includes('High') || JSON.parse(output).Severity.includes('Critical') || JSON.parse(output).Severity.includes('Critical') "
+
+  - vars:
+      inspection_note: "Severe thunderstorm last night has destroyed pole 4523 on kunat street"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Severity.includes('High') || JSON.parse(output).Severity.includes('Critical')"
+  
+  - vars:
+      inspection_note: "Severe thunderstorm last night has destroyed pole 4523 on kunat street"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Review_Flag === 'Yes'"
+
+  - vars:
+      inspection_note: "Severe thunderstorm last night but asset is completely fine. no issues at all"
+    assert:
+      - type: javascript
+        value: "JSON.parse(output).Severity.includes('Low')"
