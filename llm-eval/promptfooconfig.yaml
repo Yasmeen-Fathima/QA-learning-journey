@@ -98,7 +98,6 @@ tests:
       - type: contains
         value: "7568"
 
-
   - vars:
       inspection_note: "Severe thunderstorm last night has completely damaged pole 4523 on kunat street"
     assert:
