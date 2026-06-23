@@ -64,13 +64,16 @@ Week 6 ✅ NEARLY COMPLETE
 Week 7 — Starting Tomorrow
 LLM eval tasks:
     • Read assertions docs deeper — already done ✅ ahead of schedule
-    • Add 10 more test cases — reach 15 total
-    • Add edge-case inputs: empty string, non-English, ambiguous severity, boundary cases
-    • Add latency assertion to defaultTest
-    • Add not-icontains hallucination tests
+    • Add 10 more test cases — reach 15 total✅
+    • Add edge-case inputs: empty string, non-English, ambiguous severity, boundary cases✅
+    • Add latency assertion to defaultTest✅
+    • Add not-icontains hallucination tests✅
     • DEEPER: Write rubric document before LLM-as-judge tests
-    • DEEPER: Change system prompt — re-run all tests, see how many break
-    • Write logs/week-07.md
+    • DEEPER: Change system prompt — re-run all tests, see how many break✅
+    • Write logs/week-07.md✅
+
+------------------------------------------------------------------------------
+FInished Week 7 today, feeling good about it.
 
 ★ Python exercises:
     • Practical script: read test-ideas.md and print each idea numbered (10 lines)
