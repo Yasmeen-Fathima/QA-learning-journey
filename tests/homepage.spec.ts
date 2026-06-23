@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import {HomePage} from '../pages/homepage'
+import {HomePage} from '../pages/HomePage'
 
 /**
  * Week 1: One test, one page.
