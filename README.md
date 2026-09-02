@@ -8,6 +8,16 @@ Following [my own plan](./docs/qa-learning-plan.md) — one weekend session per 
 A small Playwright test suite running against [Practice Software Testing — Toolshop](https://practicesoftwaretesting.com), executed automatically on every push via GitHub Actions.
 
 ## Run locally
+install Node packages from internet
+
+verify installation 
+node -v
+npm -v
+
+if the above throws error as "File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system. For
+more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170"
+
+run - **Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser**
 
 ```bash
 # One-time setup
