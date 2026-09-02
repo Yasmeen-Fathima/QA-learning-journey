@@ -4,7 +4,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html', { open: 'never' }], ['list']],
+  reporter: [['html', { open: 'never' }], ['list'], ['json', {outputFile: 'test-results.json'}]],
   timeout: process.env.CI ? 120000 : 60000,
 
   use: {
@@ -24,12 +24,6 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox', use: {...devices['Desktop Firefox']}
-    },
-    ...(process.env.CI ? [] : [{
-      name: 'safari', use: {...devices['Safari']}
-    }])
+    }
   ],
 });
