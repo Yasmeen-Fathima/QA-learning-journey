@@ -1,0 +1,18 @@
+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
+
+
+
+curl https://api.anthropic.com/v1/messages \
+  --header "x-api-key: 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" \
+  --header "anthropic-version: 2023-06-01" \
+  --header "content-type: application/json" \
+  --data '{"model": "claude-sonnet-4-6", "max_tokens": 1024,
+    "messages": [{"role": "user", "content": "Hello, world"}]}'
+
+
+Test Idea:
+
+"When inspector claims asset is in good condition with no issues, summariser should return Deviation: Normal, low severity, low risk — not flag as vague just because no measurements provided"
+
+"Detailed input with asset ID, damage type, voltage level, and location should return Vague Input Flag: No — even without precise measurements"
+
